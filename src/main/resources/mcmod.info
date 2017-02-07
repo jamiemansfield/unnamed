@@ -1,0 +1,12 @@
+[
+    {
+        "modid": "unnamed",
+        "name": "Unnamed",
+        "description": "Builds on-top the pre-existing functionality of Minecraft by bringing new content that is in-line with the base-game",
+        "version": "${version}",
+        "mcVersion": "${mcversion}",
+        "authorList": [
+            "jamierocks"
+        ]
+    }
+]
