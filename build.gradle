@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'forge'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'java'
+
+    id 'net.minecrell.licenser' version '0.3'
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+group = 'uk.jamierocks.mc'
+archivesBaseName = project.name.toLowerCase()
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+}
+
+minecraft {
+    version = '1.11.2-13.20.0.2227'
+    mappings = 'snapshot_20170207'
+
+    runDir = 'run'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14.1'
+}

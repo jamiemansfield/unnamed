@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module com.demonwav.mcdev.MinecraftModuleTypes="FORGE_MODULE_TYPE,MCP_MODULE_TYPE" external.linked.project.id="unnamed" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="uk.jamierocks.mc" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
+  <component name="McpModuleSettings">
+    <option name="mappingFiles">
+      <set>
+        <option value="$USER_HOME$/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20170207/1.11.2/srgs/mcp-notch.srg" />
+        <option value="$USER_HOME$/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20170207/1.11.2/srgs/mcp-srg.srg" />
+        <option value="$USER_HOME$/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20170207/1.11.2/srgs/mcp.exc" />
+        <option value="$USER_HOME$/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20170207/1.11.2/srgs/notch-mcp.srg" />
+        <option value="$USER_HOME$/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20170207/1.11.2/srgs/notch-srg.srg" />
+        <option value="$USER_HOME$/.gradle/caches/minecraft/de/oceanlabs/mcp/mcp_snapshot/20170207/1.11.2/srgs/srg.exc" />
+      </set>
+    </option>
+    <option name="mcpVersion" value="snapshot_20170207" />
+    <option name="minecraftVersion" value="1.11.2" />
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../..">
+      <excludeFolder url="file://$MODULE_DIR$/../../.gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/../../build" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
