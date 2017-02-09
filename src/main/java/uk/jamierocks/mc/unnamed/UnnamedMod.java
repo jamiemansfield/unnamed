@@ -30,10 +30,18 @@ import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
+import uk.jamierocks.mc.unnamed.block.BlockTungsten;
+import uk.jamierocks.mc.unnamed.block.BlockTungstenOre;
+import uk.jamierocks.mc.unnamed.init.UnnamedBlocks;
+import uk.jamierocks.mc.unnamed.init.UnnamedItems;
+import uk.jamierocks.mc.unnamed.item.ItemTungsten;
 import uk.jamierocks.mc.unnamed.proxy.IProxy;
+import uk.jamierocks.mc.unnamed.util.Constants;
 
-@Mod(modid = "unnamed", name = "Unnamed")
+@Mod(modid = Constants.MOD_ID, name = "Unnamed")
 @Mod.EventBusSubscriber
 public final class UnnamedMod {
 
@@ -44,10 +52,20 @@ public final class UnnamedMod {
 
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event) {
+        event.getRegistry().register(new BlockTungstenOre());
+        event.getRegistry().register(new BlockTungsten());
     }
 
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
+        event.getRegistry().register(new ItemTungsten());
+    }
+
+    @Mod.EventHandler
+    public void onPreInit(FMLPreInitializationEvent event) {
+        OreDictionary.registerOre("tungsten", UnnamedItems.tungsten);
+        OreDictionary.registerOre("oreTungsten", UnnamedBlocks.tungsten_ore);
+        OreDictionary.registerOre("blockTungsten", UnnamedBlocks.tungsten_block);
     }
 
 }

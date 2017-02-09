@@ -25,10 +25,18 @@
 
 package uk.jamierocks.mc.unnamed.init;
 
+import net.minecraft.block.Block;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import uk.jamierocks.mc.unnamed.util.Constants;
+
 /**
  * A final class containing all of the various blocks in Unnamed.
  */
+@GameRegistry.ObjectHolder(Constants.MOD_ID)
 public final class UnnamedBlocks {
+
+    public static final Block tungsten_ore = null;
+    public static final Block tungsten_block = null;
 
     private UnnamedBlocks() {
     }

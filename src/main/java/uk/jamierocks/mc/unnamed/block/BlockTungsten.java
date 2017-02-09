@@ -23,21 +23,20 @@
  *
  */
 
-package uk.jamierocks.mc.unnamed.init;
+package uk.jamierocks.mc.unnamed.block;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.util.Constants;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import uk.jamierocks.mc.unnamed.util.BlockHelper;
 
 /**
- * A final class containing all of the various items in Unnamed.
+ * The tungsten_block block.
  */
-@GameRegistry.ObjectHolder(Constants.MOD_ID)
-public final class UnnamedItems {
+public class BlockTungsten extends Block {
 
-    public static final Item tungsten = null;
-
-    private UnnamedItems() {
+    public BlockTungsten() {
+        super(Material.ROCK);
+        BlockHelper.setBlockNames(this, "tungsten_block");
     }
 
 }

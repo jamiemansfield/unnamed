@@ -23,21 +23,34 @@
  *
  */
 
-package uk.jamierocks.mc.unnamed.init;
+package uk.jamierocks.mc.unnamed.block;
 
+import net.minecraft.block.BlockOre;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.util.Constants;
+import uk.jamierocks.mc.unnamed.init.UnnamedItems;
+import uk.jamierocks.mc.unnamed.util.BlockHelper;
+
+import java.util.Random;
 
 /**
- * A final class containing all of the various items in Unnamed.
+ * The tungsten_block ore block.
  */
-@GameRegistry.ObjectHolder(Constants.MOD_ID)
-public final class UnnamedItems {
+public class BlockTungstenOre extends BlockOre {
 
-    public static final Item tungsten = null;
+    public BlockTungstenOre() {
+        super();
+        BlockHelper.setBlockNames(this, "tungsten_ore");
+    }
 
-    private UnnamedItems() {
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return UnnamedItems.tungsten;
+    }
+
+    @Override
+    public int quantityDropped(Random random) {
+        return random.nextInt(3);
     }
 
 }

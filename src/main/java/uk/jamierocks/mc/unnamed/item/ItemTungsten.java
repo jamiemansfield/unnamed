@@ -23,21 +23,18 @@
  *
  */
 
-package uk.jamierocks.mc.unnamed.init;
+package uk.jamierocks.mc.unnamed.item;
 
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.util.Constants;
+import uk.jamierocks.mc.unnamed.util.ItemHelper;
 
 /**
- * A final class containing all of the various items in Unnamed.
+ * The Tungsten item.
  */
-@GameRegistry.ObjectHolder(Constants.MOD_ID)
-public final class UnnamedItems {
+public class ItemTungsten extends Item {
 
-    public static final Item tungsten = null;
-
-    private UnnamedItems() {
+    public ItemTungsten() {
+        ItemHelper.setItemNames(this, "tungsten_block");
     }
 
 }

@@ -23,21 +23,37 @@
  *
  */
 
-package uk.jamierocks.mc.unnamed.init;
+package uk.jamierocks.mc.unnamed.util;
 
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.util.Constants;
 
 /**
- * A final class containing all of the various items in Unnamed.
+ * A utility class for methods pertaining to items.
  */
-@GameRegistry.ObjectHolder(Constants.MOD_ID)
-public final class UnnamedItems {
+public final class ItemHelper {
 
-    public static final Item tungsten = null;
+    /**
+     * Gets the unlocalized name of a {@link Item}, used for {@link Item#setUnlocalizedName(String)}.
+     *
+     * @param itemId The identifier for the item
+     * @return The fully formatted unlocalized name for the item.
+     */
+    public static String getUnlocalizedName(String itemId) {
+        return Constants.MOD_ID + "." + itemId;
+    }
 
-    private UnnamedItems() {
+    /**
+     * Sets all the necessary names for a {@link Item}.
+     *
+     * @param item The item to set the names on.
+     * @param itemId The name of the item.
+     */
+    public static void setItemNames(Item item, String itemId) {
+        item.setUnlocalizedName(getUnlocalizedName(itemId));
+        item.setRegistryName(itemId);
+    }
+
+    private ItemHelper() {
     }
 
 }
