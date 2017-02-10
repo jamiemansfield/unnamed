@@ -27,11 +27,14 @@ package uk.jamierocks.mc.unnamed;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import uk.jamierocks.mc.unnamed.block.BlockTungsten;
 import uk.jamierocks.mc.unnamed.block.BlockTungstenOre;
@@ -52,20 +55,40 @@ public final class UnnamedMod {
 
     @SubscribeEvent
     public void registerBlocks(RegistryEvent.Register<Block> event) {
+        // tungsten
         event.getRegistry().register(new BlockTungstenOre());
         event.getRegistry().register(new BlockTungsten());
     }
 
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
+        // tungsten
         event.getRegistry().register(new ItemTungsten());
     }
 
     @Mod.EventHandler
     public void onPreInit(FMLPreInitializationEvent event) {
+        // Register items and blocks to the ore dictionary
+        ////
+
+        // tungsten
         OreDictionary.registerOre("tungsten", UnnamedItems.tungsten);
         OreDictionary.registerOre("oreTungsten", UnnamedBlocks.tungsten_ore);
         OreDictionary.registerOre("blockTungsten", UnnamedBlocks.tungsten_block);
+
+        // World generation
+        ////
+        GameRegistry.registerWorldGenerator(new UnnamedWorldGenerator(), 0);
+    }
+
+    @Mod.EventHandler
+    public void onInit(FMLInitializationEvent event) {
+        // Register recipes to the game registry
+        ////
+
+        // tungsten
+        GameRegistry.addShapedRecipe(new ItemStack(UnnamedBlocks.tungsten_block, 1), new String[] { "tt", "tt" }, 't', UnnamedItems.tungsten);
+        GameRegistry.addShapedRecipe(new ItemStack(UnnamedItems.tungsten, 4), new String[] { "t" }, 't', UnnamedBlocks.tungsten_block);
     }
 
 }
