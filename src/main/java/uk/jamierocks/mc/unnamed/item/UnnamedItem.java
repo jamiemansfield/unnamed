@@ -23,36 +23,20 @@
  *
  */
 
-package uk.jamierocks.mc.unnamed.block;
+package uk.jamierocks.mc.unnamed.item;
 
-import net.minecraft.block.BlockOre;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import uk.jamierocks.mc.unnamed.UnnamedMod;
-import uk.jamierocks.mc.unnamed.init.UnnamedItems;
-import uk.jamierocks.mc.unnamed.util.BlockHelper;
-
-import java.util.Random;
+import uk.jamierocks.mc.unnamed.util.ItemHelper;
 
 /**
- * The tungsten_block ore block.
+ * An extension of {@link Item} used by all items in Unnamed.
  */
-public class BlockTungstenOre extends BlockOre {
+public class UnnamedItem extends Item {
 
-    public BlockTungstenOre() {
-        super();
-        BlockHelper.setBlockNames(this, "tungsten_ore");
+    public UnnamedItem(String identifier) {
+        ItemHelper.setItemNames(this, identifier);
         this.setCreativeTab(UnnamedMod.creativeTab);
-    }
-
-    @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return UnnamedItems.tungsten;
-    }
-
-    @Override
-    public int quantityDropped(Random random) {
-        return random.nextInt(3);
     }
 
 }

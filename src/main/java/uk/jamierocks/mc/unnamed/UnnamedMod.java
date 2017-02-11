@@ -30,6 +30,7 @@ import static uk.jamierocks.mc.unnamed.init.UnnamedBlocks.tungsten_ore;
 import static uk.jamierocks.mc.unnamed.init.UnnamedItems.tungsten;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -43,9 +44,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import uk.jamierocks.mc.unnamed.block.BlockTungsten;
-import uk.jamierocks.mc.unnamed.block.BlockTungstenOre;
-import uk.jamierocks.mc.unnamed.item.ItemTungsten;
+import uk.jamierocks.mc.unnamed.block.UnnamedBlock;
+import uk.jamierocks.mc.unnamed.block.UnnamedBlockOre;
+import uk.jamierocks.mc.unnamed.item.UnnamedItem;
 import uk.jamierocks.mc.unnamed.proxy.IProxy;
 import uk.jamierocks.mc.unnamed.util.Constants;
 
@@ -68,14 +69,18 @@ public final class UnnamedMod {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         // tungsten
-        registerBlock(event.getRegistry(), new BlockTungstenOre());
-        registerBlock(event.getRegistry(), new BlockTungsten());
+        registerBlock(event.getRegistry(), UnnamedBlockOre.builder()
+                .identifier("tungsten_ore")
+                .quantityDropped(1, 3)
+                .expDrop(2, 5)
+                .build());
+        registerBlock(event.getRegistry(), new UnnamedBlock("tungsten_block", Material.ROCK));
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         // tungsten
-        registerItem(event.getRegistry(), new ItemTungsten(), 0);
+        registerItem(event.getRegistry(), new UnnamedItem("tungsten"), 0);
         registerItemBlock(event.getRegistry(), tungsten_ore, 0);
         registerItemBlock(event.getRegistry(), tungsten_block, 0);
     }

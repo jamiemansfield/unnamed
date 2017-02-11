@@ -26,7 +26,7 @@
 package uk.jamierocks.mc.unnamed.init;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.item.ItemTungsten;
+import uk.jamierocks.mc.unnamed.item.UnnamedItem;
 import uk.jamierocks.mc.unnamed.util.Constants;
 
 /**
@@ -35,7 +35,7 @@ import uk.jamierocks.mc.unnamed.util.Constants;
 @GameRegistry.ObjectHolder(Constants.MOD_ID)
 public final class UnnamedItems {
 
-    public static final ItemTungsten tungsten = null;
+    public static final UnnamedItem tungsten = null;
 
     private UnnamedItems() {
     }

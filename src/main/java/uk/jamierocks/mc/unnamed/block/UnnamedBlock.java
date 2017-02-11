@@ -31,13 +31,13 @@ import uk.jamierocks.mc.unnamed.UnnamedMod;
 import uk.jamierocks.mc.unnamed.util.BlockHelper;
 
 /**
- * The tungsten_block block.
+ * An extension of {@link Block} used by all blocks in Unnamed.
  */
-public class BlockTungsten extends Block {
+public class UnnamedBlock extends Block {
 
-    public BlockTungsten() {
-        super(Material.ROCK);
-        BlockHelper.setBlockNames(this, "tungsten_block");
+    public UnnamedBlock(String identifier, Material materialIn) {
+        super(materialIn);
+        BlockHelper.setBlockNames(this, identifier);
         this.setCreativeTab(UnnamedMod.creativeTab);
     }
 

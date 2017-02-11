@@ -26,8 +26,8 @@
 package uk.jamierocks.mc.unnamed.init;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.block.BlockTungsten;
-import uk.jamierocks.mc.unnamed.block.BlockTungstenOre;
+import uk.jamierocks.mc.unnamed.block.UnnamedBlock;
+import uk.jamierocks.mc.unnamed.block.UnnamedBlockOre;
 import uk.jamierocks.mc.unnamed.util.Constants;
 
 /**
@@ -36,8 +36,8 @@ import uk.jamierocks.mc.unnamed.util.Constants;
 @GameRegistry.ObjectHolder(Constants.MOD_ID)
 public final class UnnamedBlocks {
 
-    public static final BlockTungstenOre tungsten_ore = null;
-    public static final BlockTungsten tungsten_block = null;
+    public static final UnnamedBlockOre tungsten_ore = null;
+    public static final UnnamedBlock tungsten_block = null;
 
     private UnnamedBlocks() {
     }
