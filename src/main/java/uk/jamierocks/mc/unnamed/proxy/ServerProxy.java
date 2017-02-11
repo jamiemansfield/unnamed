@@ -33,7 +33,7 @@ import net.minecraft.item.Item;
 public final class ServerProxy implements IProxy {
 
     @Override
-    public void registerItemModel(Item block, int itemVariant) {
+    public void registerItemModel(Item item, int itemVariant) {
     }
 
 }

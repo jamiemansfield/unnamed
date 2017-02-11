@@ -6,7 +6,6 @@
             "all": "unnamed:blocks/tungsten_block"
         }
     },
-
     "variants": {
         "normal": [{}],
         "inventory":[{}]

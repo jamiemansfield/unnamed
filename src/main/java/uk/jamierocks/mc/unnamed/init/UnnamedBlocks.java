@@ -25,16 +25,19 @@
 
 package uk.jamierocks.mc.unnamed.init;
 
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import uk.jamierocks.mc.unnamed.block.BlockTungsten;
 import uk.jamierocks.mc.unnamed.block.BlockTungstenOre;
+import uk.jamierocks.mc.unnamed.util.Constants;
 
 /**
  * A final class containing all of the various blocks in Unnamed.
  */
+@GameRegistry.ObjectHolder(Constants.MOD_ID)
 public final class UnnamedBlocks {
 
-    public static final BlockTungstenOre tungsten_ore = new BlockTungstenOre();
-    public static final BlockTungsten tungsten_block = new BlockTungsten();
+    public static final BlockTungstenOre tungsten_ore = null;
+    public static final BlockTungsten tungsten_block = null;
 
     private UnnamedBlocks() {
     }

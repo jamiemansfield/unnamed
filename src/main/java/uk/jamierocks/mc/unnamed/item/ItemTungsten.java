@@ -35,7 +35,7 @@ import uk.jamierocks.mc.unnamed.util.ItemHelper;
 public class ItemTungsten extends Item {
 
     public ItemTungsten() {
-        ItemHelper.setItemNames(this, "tungsten_block");
+        ItemHelper.setItemNames(this, "tungsten");
         this.setCreativeTab(UnnamedMod.creativeTab);
     }
 

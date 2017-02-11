@@ -33,6 +33,6 @@ import net.minecraft.item.Item;
  */
 public interface IProxy {
 
-    void registerItemModel(Item block, int itemVariant);
+    void registerItemModel(Item item, int itemVariant);
 
 }

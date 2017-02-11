@@ -32,6 +32,7 @@ import static uk.jamierocks.mc.unnamed.init.UnnamedItems.tungsten;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -42,7 +43,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import uk.jamierocks.mc.unnamed.init.UnnamedItems;
+import uk.jamierocks.mc.unnamed.block.BlockTungsten;
+import uk.jamierocks.mc.unnamed.block.BlockTungstenOre;
+import uk.jamierocks.mc.unnamed.item.ItemTungsten;
 import uk.jamierocks.mc.unnamed.proxy.IProxy;
 import uk.jamierocks.mc.unnamed.util.Constants;
 
@@ -55,24 +58,26 @@ public final class UnnamedMod {
             serverSide = "uk.jamierocks.md.unnamed.proxy.ServerProxy")
     public static IProxy proxy;
 
-    public static CreativeTabs creativeTab = new CreativeTabs("unnamed") {
+    public static CreativeTabs creativeTab = new CreativeTabs(Constants.MOD_ID) {
         @Override
         public ItemStack getTabIconItem() {
-            return new ItemStack(UnnamedItems.tungsten);
+            return new ItemStack(tungsten);
         }
     };
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         // tungsten
-        registerBlock(event.getRegistry(), tungsten_ore, 0);
-        registerBlock(event.getRegistry(), tungsten_block, 0);
+        registerBlock(event.getRegistry(), new BlockTungstenOre());
+        registerBlock(event.getRegistry(), new BlockTungsten());
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         // tungsten
-        registerItem(event.getRegistry(), tungsten);
+        registerItem(event.getRegistry(), new ItemTungsten(), 0);
+        registerItemBlock(event.getRegistry(), tungsten_ore, 0);
+        registerItemBlock(event.getRegistry(), tungsten_block, 0);
     }
 
     @Mod.EventHandler
@@ -100,13 +105,17 @@ public final class UnnamedMod {
         GameRegistry.addShapedRecipe(new ItemStack(tungsten, 4), new String[] { "t" }, 't', tungsten_block);
     }
 
-    private static void registerBlock(IForgeRegistry<Block> registry, Block block, int itemVariant) {
+    private static void registerBlock(IForgeRegistry<Block> registry, Block block) {
         registry.register(block);
-        proxy.registerItemModel(Item.getItemFromBlock(block), itemVariant);
     }
 
-    private static void registerItem(IForgeRegistry<Item> registry, Item item) {
+    private static void registerItem(IForgeRegistry<Item> registry, Item item, int itemVariant) {
         registry.register(item);
+        proxy.registerItemModel(item, itemVariant);
+    }
+
+    private static void registerItemBlock(IForgeRegistry<Item> registry, Block block, int itemVariant) {
+        registerItem(registry, new ItemBlock(block).setRegistryName(block.getRegistryName()), itemVariant);
     }
 
 }
