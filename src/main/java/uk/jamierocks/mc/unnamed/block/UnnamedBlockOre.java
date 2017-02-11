@@ -37,17 +37,18 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import java.util.Random;
+import java.util.function.Supplier;
 
 /**
  * An extension of {@link UnnamedBlock} used for all ores in Unnamed.
  */
 public class UnnamedBlockOre extends UnnamedBlock {
 
-    private final Item dropped;
+    private final Supplier<Item> dropped;
     private final Range<Integer> quantityDropped;
     private final Range<Integer> expDrop;
 
-    private UnnamedBlockOre(String identifier, Item dropped, Range<Integer> quantityDropped, Range<Integer> expDrop) {
+    private UnnamedBlockOre(String identifier, Supplier<Item> dropped, Range<Integer> quantityDropped, Range<Integer> expDrop) {
         super(identifier, Material.ROCK);
         this.dropped = dropped;
         this.quantityDropped = quantityDropped;
@@ -57,7 +58,7 @@ public class UnnamedBlockOre extends UnnamedBlock {
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         if (this.dropped != null) {
-            return this.dropped;
+            return this.dropped.get();
         }
         return super.getItemDropped(state, rand, fortune);
     }
@@ -102,7 +103,7 @@ public class UnnamedBlockOre extends UnnamedBlock {
     public static class Builder {
 
         private String identifier;
-        private Item drop;
+        private Supplier<Item> drop;
         private Range<Integer> quantityDropped;
         private Range<Integer> expDrop;
 
@@ -114,7 +115,7 @@ public class UnnamedBlockOre extends UnnamedBlock {
             return this;
         }
 
-        public Builder drop(Item drop) {
+        public Builder drop(Supplier<Item> drop) {
             this.drop = drop;
             return this;
         }

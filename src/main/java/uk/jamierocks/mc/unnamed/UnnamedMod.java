@@ -71,6 +71,7 @@ public final class UnnamedMod {
         // tungsten
         registerBlock(event.getRegistry(), UnnamedBlockOre.builder()
                 .identifier("tungsten_ore")
+                .drop(() -> tungsten)
                 .quantityDropped(1, 3)
                 .expDrop(2, 5)
                 .build());
