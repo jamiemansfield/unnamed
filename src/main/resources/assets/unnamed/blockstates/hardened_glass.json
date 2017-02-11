@@ -3,7 +3,7 @@
     "defaults": {
         "model": "minecraft:cube_all",
         "textures": {
-            "all": "unnamed:blocks/tungsten_ore"
+            "all": "unnamed:blocks/hardened_glass"
         }
     },
     "variants": {

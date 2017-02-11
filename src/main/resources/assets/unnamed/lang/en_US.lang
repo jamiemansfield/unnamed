@@ -1,5 +1,8 @@
 itemGroup.unnamed=Unnamed
 
 item.unnamed.tungsten.name=Tungsten
+item.unnamed.tungsten_carbide.name=Tungsten Carbide
 tile.unnamed.tungsten_ore.name=Tungsten Ore
 tile.unnamed.tungsten_block.name=Tungsten Block
+
+tile.unnamed.hardened_glass.name=Hardened Glass

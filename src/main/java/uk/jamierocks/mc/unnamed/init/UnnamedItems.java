@@ -36,6 +36,7 @@ import uk.jamierocks.mc.unnamed.util.Constants;
 public final class UnnamedItems {
 
     public static final UnnamedItem tungsten = null;
+    public static final UnnamedItem tungsten_carbide = null;
 
     private UnnamedItems() {
     }

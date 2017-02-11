@@ -25,13 +25,16 @@
 
 package uk.jamierocks.mc.unnamed;
 
+import static uk.jamierocks.mc.unnamed.init.UnnamedBlocks.hardened_glass;
 import static uk.jamierocks.mc.unnamed.init.UnnamedBlocks.tungsten_block;
 import static uk.jamierocks.mc.unnamed.init.UnnamedBlocks.tungsten_ore;
 import static uk.jamierocks.mc.unnamed.init.UnnamedItems.tungsten;
+import static uk.jamierocks.mc.unnamed.init.UnnamedItems.tungsten_carbide;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -44,6 +47,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.oredict.OreDictionary;
+import uk.jamierocks.mc.unnamed.block.BlockHardenedGlass;
 import uk.jamierocks.mc.unnamed.block.UnnamedBlock;
 import uk.jamierocks.mc.unnamed.block.UnnamedBlockOre;
 import uk.jamierocks.mc.unnamed.item.UnnamedItem;
@@ -76,14 +80,21 @@ public final class UnnamedMod {
                 .expDrop(2, 5)
                 .build());
         registerBlock(event.getRegistry(), new UnnamedBlock("tungsten_block", Material.ROCK));
+
+        // hardened stuff
+        registerBlock(event.getRegistry(), new BlockHardenedGlass("hardened_glass"));
     }
 
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         // tungsten
         registerItem(event.getRegistry(), new UnnamedItem("tungsten"), 0);
+        registerItem(event.getRegistry(), new UnnamedItem("tungsten_carbide"), 0);
         registerItemBlock(event.getRegistry(), tungsten_ore, 0);
         registerItemBlock(event.getRegistry(), tungsten_block, 0);
+
+        // hardened stuff
+        registerItemBlock(event.getRegistry(), hardened_glass, 0);
     }
 
     @Mod.EventHandler
@@ -107,8 +118,13 @@ public final class UnnamedMod {
         ////
 
         // tungsten
-        GameRegistry.addShapedRecipe(new ItemStack(tungsten_block, 1), new String[] { "tt", "tt" }, 't', tungsten);
+        GameRegistry.addShapedRecipe(new ItemStack(tungsten_block), new String[] { "tt", "tt" }, 't', tungsten);
         GameRegistry.addShapedRecipe(new ItemStack(tungsten, 4), new String[] { "t" }, 't', tungsten_block);
+        GameRegistry.addSmelting(tungsten, new ItemStack(tungsten_carbide, 3), 2);
+
+        // hardened stuff
+        GameRegistry.addShapedRecipe(new ItemStack(hardened_glass),
+                new String[] { "ccc", "cgc", "ccc" }, 'c', tungsten_carbide, 'g', Blocks.GLASS);
     }
 
     private static void registerBlock(IForgeRegistry<Block> registry, Block block) {
