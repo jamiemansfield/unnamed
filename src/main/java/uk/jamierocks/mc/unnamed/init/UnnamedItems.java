@@ -25,17 +25,14 @@
 
 package uk.jamierocks.mc.unnamed.init;
 
-import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.util.Constants;
+import uk.jamierocks.mc.unnamed.item.ItemTungsten;
 
 /**
  * A final class containing all of the various items in Unnamed.
  */
-@GameRegistry.ObjectHolder(Constants.MOD_ID)
 public final class UnnamedItems {
 
-    public static final Item tungsten = null;
+    public static final ItemTungsten tungsten = new ItemTungsten();
 
     private UnnamedItems() {
     }

@@ -26,6 +26,7 @@
 package uk.jamierocks.mc.unnamed.item;
 
 import net.minecraft.item.Item;
+import uk.jamierocks.mc.unnamed.UnnamedMod;
 import uk.jamierocks.mc.unnamed.util.ItemHelper;
 
 /**
@@ -35,6 +36,7 @@ public class ItemTungsten extends Item {
 
     public ItemTungsten() {
         ItemHelper.setItemNames(this, "tungsten_block");
+        this.setCreativeTab(UnnamedMod.creativeTab);
     }
 
 }

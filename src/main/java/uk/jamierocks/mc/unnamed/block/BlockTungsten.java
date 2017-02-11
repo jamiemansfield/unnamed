@@ -27,6 +27,7 @@ package uk.jamierocks.mc.unnamed.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import uk.jamierocks.mc.unnamed.UnnamedMod;
 import uk.jamierocks.mc.unnamed.util.BlockHelper;
 
 /**
@@ -37,6 +38,7 @@ public class BlockTungsten extends Block {
     public BlockTungsten() {
         super(Material.ROCK);
         BlockHelper.setBlockNames(this, "tungsten_block");
+        this.setCreativeTab(UnnamedMod.creativeTab);
     }
 
 }

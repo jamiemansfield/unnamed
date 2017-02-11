@@ -25,10 +25,14 @@
 
 package uk.jamierocks.mc.unnamed.proxy;
 
+import net.minecraft.item.Item;
+
 /**
  * Used to describe methods that needed to be provided by individual proxies
  * by both the client and server.
  */
 public interface IProxy {
+
+    void registerItemModel(Item block, int itemVariant);
 
 }

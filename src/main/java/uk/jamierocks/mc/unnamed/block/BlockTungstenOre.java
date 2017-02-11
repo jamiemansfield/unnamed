@@ -28,6 +28,7 @@ package uk.jamierocks.mc.unnamed.block;
 import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
+import uk.jamierocks.mc.unnamed.UnnamedMod;
 import uk.jamierocks.mc.unnamed.init.UnnamedItems;
 import uk.jamierocks.mc.unnamed.util.BlockHelper;
 
@@ -41,6 +42,7 @@ public class BlockTungstenOre extends BlockOre {
     public BlockTungstenOre() {
         super();
         BlockHelper.setBlockNames(this, "tungsten_ore");
+        this.setCreativeTab(UnnamedMod.creativeTab);
     }
 
     @Override

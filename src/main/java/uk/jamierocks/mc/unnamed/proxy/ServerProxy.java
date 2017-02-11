@@ -25,9 +25,15 @@
 
 package uk.jamierocks.mc.unnamed.proxy;
 
+import net.minecraft.item.Item;
+
 /**
  * The implementation of {@link IProxy} for the Minecraft server.
  */
 public final class ServerProxy implements IProxy {
+
+    @Override
+    public void registerItemModel(Item block, int itemVariant) {
+    }
 
 }

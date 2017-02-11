@@ -25,11 +25,30 @@
 
 package uk.jamierocks.mc.unnamed.client.proxy;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import uk.jamierocks.mc.unnamed.proxy.IProxy;
 
 /**
  * The implementation of {@link IProxy} for the Minecraft client.
  */
+@SideOnly(Side.CLIENT)
 public final class ClientProxy implements IProxy {
+
+    @Override
+    public void registerItemModel(Item item, int variant) {
+        final ResourceLocation loc = Item.REGISTRY.getNameForObject(item);
+        if (loc == null) {
+            return;
+        }
+
+        if (variant == 0) {
+            ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(loc, "inventory"));
+        }
+    }
 
 }
