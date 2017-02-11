@@ -32,7 +32,6 @@ import static uk.jamierocks.mc.unnamed.init.UnnamedItems.tungsten;
 import static uk.jamierocks.mc.unnamed.init.UnnamedItems.tungsten_carbide;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -47,9 +46,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.oredict.OreDictionary;
-import uk.jamierocks.mc.unnamed.block.BlockHardenedGlass;
 import uk.jamierocks.mc.unnamed.block.UnnamedBlock;
-import uk.jamierocks.mc.unnamed.block.UnnamedBlockOre;
 import uk.jamierocks.mc.unnamed.item.UnnamedItem;
 import uk.jamierocks.mc.unnamed.proxy.IProxy;
 import uk.jamierocks.mc.unnamed.util.Constants;
@@ -73,16 +70,23 @@ public final class UnnamedMod {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         // tungsten
-        registerBlock(event.getRegistry(), UnnamedBlockOre.builder()
+        registerBlock(event.getRegistry(), UnnamedBlock.builder()
                 .identifier("tungsten_ore")
                 .drop(() -> tungsten)
                 .quantityDropped(1, 3)
                 .expDrop(2, 5)
                 .build());
-        registerBlock(event.getRegistry(), new UnnamedBlock("tungsten_block", Material.ROCK));
+        registerBlock(event.getRegistry(), UnnamedBlock.builder()
+                .identifier("tungsten_block")
+                .build());
 
         // hardened stuff
-        registerBlock(event.getRegistry(), new BlockHardenedGlass("hardened_glass"));
+        registerBlock(event.getRegistry(), UnnamedBlock.builder()
+                .identifier("hardened_glass")
+                .quantityDropped(0)
+                .hardness(0.75f) // glass hardness is 0.3, this is 1.5x
+                .resistance(10f) // same as stone
+                .build());
     }
 
     @SubscribeEvent

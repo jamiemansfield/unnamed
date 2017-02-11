@@ -25,37 +25,32 @@
 
 package uk.jamierocks.mc.unnamed.block;
 
+import com.google.common.collect.Range;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import uk.jamierocks.mc.unnamed.init.UnnamedBlocks;
 
-import java.util.Random;
+import java.util.function.Supplier;
 
-public class BlockHardenedGlass extends UnnamedBlock {
+public class UnnamedBlockGlass extends UnnamedBlock {
 
-    public BlockHardenedGlass(String identifier) {
-        super(identifier, Material.GLASS);
+    protected UnnamedBlockGlass(String identifier, Material materialIn, Supplier<Item> dropped,
+            Range<Integer> quantityDropped, Range<Integer> expDrop) {
+        super(identifier, materialIn, dropped, quantityDropped, expDrop);
         this.setSoundType(SoundType.GLASS);
-        this.setHardness(0.75f); // glass hardness is 0.3, this is 1.5x
-        this.setResistance(10f); // same as stone
-    }
-
-    @Override
-    public int quantityDropped(Random random) {
-        return 0;
     }
 
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.CUTOUT;
+        return BlockRenderLayer.TRANSLUCENT;
     }
 
     @Override
@@ -79,17 +74,7 @@ public class BlockHardenedGlass extends UnnamedBlock {
         final IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
         final Block block = iblockstate.getBlock();
 
-        if (this == UnnamedBlocks.hardened_glass) {
-            if (blockState != iblockstate) {
-                return true;
-            }
-
-            if (block == this) {
-                return false;
-            }
-        }
-
-        return block != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+        return blockState != iblockstate || block != this && super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
 
 }
