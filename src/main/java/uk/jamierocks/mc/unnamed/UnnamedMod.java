@@ -72,6 +72,7 @@ public final class UnnamedMod {
         // tungsten
         registerBlock(event.getRegistry(), UnnamedBlock.builder()
                 .identifier("tungsten_ore")
+                .type(UnnamedBlock.Type.ORE)
                 .drop(() -> tungsten)
                 .quantityDropped(1, 3)
                 .expDrop(2, 5)
@@ -83,6 +84,7 @@ public final class UnnamedMod {
         // hardened stuff
         registerBlock(event.getRegistry(), UnnamedBlock.builder()
                 .identifier("hardened_glass")
+                .type(UnnamedBlock.Type.GLASS)
                 .quantityDropped(0)
                 .hardness(0.75f) // glass hardness is 0.3, this is 1.5x
                 .resistance(10f) // same as stone

@@ -182,7 +182,7 @@ public class UnnamedBlock extends Block {
 
     }
 
-    enum Type {
+    public enum Type {
 
         NORMAL(Material.ROCK),
         ORE(Material.ROCK),
