@@ -83,9 +83,8 @@ public final class UnnamedMod {
                 .build());
 
         // hardened stuff
-        registerBlock(event.getRegistry(), UnnamedBlock.builder()
+        registerBlock(event.getRegistry(), UnnamedBlock.glassBuilder()
                 .identifier("hardened_glass")
-                .drop(ItemDropBehaviour.DROP_NONE)
                 .hardness(0.75f) // glass hardness is 0.3, this is 1.5x
                 .resistance(10f) // same as stone
                 .build(ConstructionBehaviour.GLASS));

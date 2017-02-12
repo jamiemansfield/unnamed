@@ -28,6 +28,7 @@ package uk.jamierocks.mc.unnamed.block;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -87,10 +88,18 @@ public class UnnamedBlock extends Block {
         return new Builder();
     }
 
+    public static Builder glassBuilder() {
+        return new Builder()
+                .material(Material.GLASS)
+                .soundType(SoundType.GLASS)
+                .drop(ItemDropBehaviour.DROP_NONE);
+    }
+
     public static class Builder {
 
         private String identifier;
-        private Material material;
+        private Material material = Material.ROCK;
+        private Optional<SoundType> soundType = Optional.empty();
         private Supplier<Item> drop;
         private ItemDropBehaviour itemDropBehaviour = ItemDropBehaviour.DEFAULT;
         private ExpDropBehaviour expDropBehaviour = ExpDropBehaviour.DEFAULT;
@@ -107,6 +116,11 @@ public class UnnamedBlock extends Block {
 
         public Builder material(Material material) {
             this.material = material;
+            return this;
+        }
+
+        public Builder soundType(SoundType soundType) {
+            this.soundType = Optional.of(soundType);
             return this;
         }
 
@@ -144,14 +158,11 @@ public class UnnamedBlock extends Block {
         public UnnamedBlock build(ConstructionBehaviour constructionBehaviour) {
             checkNotNull(this.identifier, "An identifier is required to build a block!");
 
-            if (this.material == null) {
-                this.material = constructionBehaviour.getDefaultMaterial();
-            }
-
             final UnnamedBlock block =
                     constructionBehaviour.construct(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
             this.hardness.ifPresent(block::setHardness);
             this.resistance.ifPresent(block::setResistance);
+            this.soundType.ifPresent(block::setSoundType);
 
             return block;
         }

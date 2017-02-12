@@ -46,28 +46,12 @@ public interface ConstructionBehaviour {
     /**
      * The default construction behaviour.
      */
-    ConstructionBehaviour DEFAULT = new ConstructionBehaviour() {
-        @Override
-        public Material getDefaultMaterial() {
-            return Material.ROCK;
-        }
-
-        @Override
-        public UnnamedBlock construct(String identifier, Material materialIn, Supplier<Item> dropped, ItemDropBehaviour itemDropBehaviour,
-                ExpDropBehaviour expDropBehaviour) {
-            return new UnnamedBlock(identifier, materialIn, dropped, itemDropBehaviour, expDropBehaviour);
-        }
-    };
+    ConstructionBehaviour DEFAULT = UnnamedBlock::new;
 
     /**
      * The construction behaviour for ores.
      */
     ConstructionBehaviour GLASS = new ConstructionBehaviour() {
-        @Override
-        public Material getDefaultMaterial() {
-            return Material.GLASS;
-        }
-
         @Override
         public UnnamedBlock construct(String identifier, Material materialIn, Supplier<Item> dropped, ItemDropBehaviour itemDropBehaviour,
                 ExpDropBehaviour expDropBehaviour) {
@@ -103,13 +87,6 @@ public interface ConstructionBehaviour {
             };
         }
     };
-
-    /**
-     * Gets the default {@link Material}, to be used if none is set.
-     *
-     * @return The default material
-     */
-    Material getDefaultMaterial();
 
     /**
      * Gets a constructed {@link UnnamedBlock} with the given parameters.
