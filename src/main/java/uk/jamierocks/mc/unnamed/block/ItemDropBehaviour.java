@@ -25,36 +25,52 @@
 
 package uk.jamierocks.mc.unnamed.block;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
+import net.minecraft.util.math.MathHelper;
 
 import java.util.Random;
-import java.util.function.Supplier;
 
 /**
- * An extension of {@link UnnamedBlock} used for all ores in Unnamed.
+ * An interface used to describe the behaviour for item drops for an {@link UnnamedBlock}.
  */
-public class UnnamedBlockOre extends UnnamedBlock {
+public interface ItemDropBehaviour {
 
-    protected UnnamedBlockOre(String identifier, Material materialIn, Supplier<Item> dropped,
-            ItemDropBehaviour itemDropBehaviour, ExpDropBehaviour expDropBehaviour) {
-        super(identifier, materialIn, dropped, itemDropBehaviour, expDropBehaviour);
+    /**
+     * A drop behaviour for dropping no items.
+     */
+    ItemDropBehaviour DROP_NONE = of(0);
+
+    /**
+     * The default drop behaviour.
+     */
+    ItemDropBehaviour DEFAULT = of(1);
+
+    /**
+     * Creates a drop behaviour that drops the given item quantity.
+     *
+     * @param quantity The quantity of items to drop
+     * @return The drop behaviour
+     */
+    static ItemDropBehaviour of(int quantity) {
+        return (random) -> quantity;
     }
 
-    // based on code from BlockOre#quantityDroppedWithBonus(int, Random)
-    @Override
-    public int quantityDroppedWithBonus(int fortune, Random random) {
-        if (fortune > 0 && this.dropped != null) {
-            int i = random.nextInt(fortune + 2) - 1;
-
-            if (i < 0) {
-                i = 0;
-            }
-
-            return this.quantityDropped(random) * (i + 1);
-        } else {
-            return this.quantityDropped(random);
-        }
+    /**
+     * Creates a drop behaviour that drops based on given item quantity range.
+     *
+     * @param minimum The minimum quantity of items to drop
+     * @param maximum The maximum quantity of items to drop
+     * @return The drop behaviour
+     */
+    static ItemDropBehaviour of(int minimum, int maximum) {
+        return (random) -> MathHelper.getInt(random, minimum, maximum);
     }
+
+    /**
+     * Gets the quantity of the items to be dropped.
+     *
+     * @param random The random
+     * @return The quantity dropped
+     */
+    int getQuantityDropped(Random random);
 
 }

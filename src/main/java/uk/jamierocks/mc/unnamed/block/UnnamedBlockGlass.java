@@ -25,7 +25,6 @@
 
 package uk.jamierocks.mc.unnamed.block;
 
-import com.google.common.collect.Range;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -43,8 +42,8 @@ import java.util.function.Supplier;
 public class UnnamedBlockGlass extends UnnamedBlock {
 
     protected UnnamedBlockGlass(String identifier, Material materialIn, Supplier<Item> dropped,
-            Range<Integer> quantityDropped, Range<Integer> expDrop) {
-        super(identifier, materialIn, dropped, quantityDropped, expDrop);
+            ItemDropBehaviour itemDropBehaviour, ExpDropBehaviour expDropBehaviour) {
+        super(identifier, materialIn, dropped, itemDropBehaviour, expDropBehaviour);
         this.setSoundType(SoundType.GLASS);
     }
 

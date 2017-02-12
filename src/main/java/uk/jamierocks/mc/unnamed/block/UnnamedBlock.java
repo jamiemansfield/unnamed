@@ -27,15 +27,12 @@ package uk.jamierocks.mc.unnamed.block;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.collect.Range;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import uk.jamierocks.mc.unnamed.UnnamedMod;
 import uk.jamierocks.mc.unnamed.util.BlockHelper;
 
@@ -49,15 +46,15 @@ import java.util.function.Supplier;
 public class UnnamedBlock extends Block {
 
     protected final Supplier<Item> dropped;
-    protected final Range<Integer> quantityDropped;
-    protected final Range<Integer> expDrop;
+    protected final ItemDropBehaviour itemDropBehaviour;
+    protected final ExpDropBehaviour expDropBehaviour;
 
     protected UnnamedBlock(String identifier, Material materialIn, Supplier<Item> dropped,
-             Range<Integer> quantityDropped, Range<Integer> expDrop) {
+            ItemDropBehaviour itemDropBehaviour, ExpDropBehaviour expDropBehaviour) {
         super(materialIn);
         this.dropped = dropped;
-        this.quantityDropped = quantityDropped;
-        this.expDrop = expDrop;
+        this.itemDropBehaviour = itemDropBehaviour;
+        this.expDropBehaviour = expDropBehaviour;
 
         BlockHelper.setBlockNames(this, identifier);
         this.setCreativeTab(UnnamedMod.creativeTab);
@@ -73,19 +70,12 @@ public class UnnamedBlock extends Block {
 
     @Override
     public int quantityDropped(Random random) {
-        if (this.quantityDropped != null) {
-            return MathHelper.getInt(random, this.quantityDropped.lowerEndpoint(), this.quantityDropped.upperEndpoint());
-        }
-        return super.quantityDropped(random);
+        return this.itemDropBehaviour.getQuantityDropped(random);
     }
 
     @Override
     public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
-        final Random random = world instanceof World ? ((World) world).rand : new Random();
-        if (this.expDrop != null) {
-            return MathHelper.getInt(random, this.expDrop.lowerEndpoint(), this.expDrop.upperEndpoint());
-        }
-        return super.getExpDrop(state, world, pos, fortune);
+        return this.expDropBehaviour.getQuantityDropped(state, world, pos, fortune);
     }
 
     public static Builder builder() {
@@ -97,11 +87,11 @@ public class UnnamedBlock extends Block {
         private String identifier;
         private Type type = Type.NORMAL;
         private Material material;
+        private Supplier<Item> drop;
+        private ItemDropBehaviour itemDropBehaviour = ItemDropBehaviour.DEFAULT;
+        private ExpDropBehaviour expDropBehaviour = ExpDropBehaviour.DEFAULT;
         private Optional<Float> hardness = Optional.empty();
         private Optional<Float> resistance = Optional.empty();
-        private Supplier<Item> drop;
-        private Range<Integer> quantityDropped;
-        private Range<Integer> expDrop;
 
         private Builder() {
         }
@@ -126,6 +116,22 @@ public class UnnamedBlock extends Block {
             return this;
         }
 
+        public Builder drop(ItemDropBehaviour dropBehavior) {
+            this.itemDropBehaviour = dropBehavior;
+            return this;
+        }
+
+        public Builder drop(ExpDropBehaviour dropBehaviour) {
+            this.expDropBehaviour = dropBehaviour;
+            return this;
+        }
+
+        public Builder drop(Supplier<Item> drop, ItemDropBehaviour dropBehavior) {
+            this.drop = drop;
+            this.itemDropBehaviour = dropBehavior;
+            return this;
+        }
+
         public Builder hardness(float hardness) {
             this.hardness = Optional.of(hardness);
             return this;
@@ -134,24 +140,6 @@ public class UnnamedBlock extends Block {
         public Builder resistance(float resistance) {
             this.resistance = Optional.of(resistance);
             return this;
-        }
-
-        public Builder quantityDropped(int minimum, int maximum) {
-            this.quantityDropped = Range.closed(minimum, maximum);
-            return this;
-        }
-
-        public Builder quantityDropped(int quantityDropped) {
-            return this.quantityDropped(quantityDropped, quantityDropped);
-        }
-
-        public Builder expDrop(int minimum, int maximum) {
-            this.expDrop = Range.closed(minimum, maximum);
-            return this;
-        }
-
-        public Builder expDrop(int expDrop) {
-            return this.expDrop(expDrop, expDrop);
         }
 
         public UnnamedBlock build() {
@@ -164,13 +152,13 @@ public class UnnamedBlock extends Block {
             final UnnamedBlock block;
             switch (type) {
                 case ORE:
-                    block = new UnnamedBlockOre(this.identifier, this.material, this.drop, this.quantityDropped, this.expDrop);
+                    block = new UnnamedBlockOre(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
                     break;
                 case GLASS:
-                    block = new UnnamedBlockGlass(this.identifier, this.material, this.drop, this.quantityDropped, this.expDrop);
+                    block = new UnnamedBlockGlass(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
                     break;
                 default:
-                    block = new UnnamedBlock(this.identifier, this.material, this.drop, this.quantityDropped, this.expDrop);
+                    block = new UnnamedBlock(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
                     break;
             }
 
