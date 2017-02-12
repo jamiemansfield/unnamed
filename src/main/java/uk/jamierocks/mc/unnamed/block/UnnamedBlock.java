@@ -49,7 +49,7 @@ public class UnnamedBlock extends Block {
     protected final ItemDropBehaviour itemDropBehaviour;
     protected final ExpDropBehaviour expDropBehaviour;
 
-    protected UnnamedBlock(String identifier, Material materialIn, Supplier<Item> dropped,
+    public UnnamedBlock(String identifier, Material materialIn, Supplier<Item> dropped,
             ItemDropBehaviour itemDropBehaviour, ExpDropBehaviour expDropBehaviour) {
         super(materialIn);
         this.dropped = dropped;
@@ -85,7 +85,6 @@ public class UnnamedBlock extends Block {
     public static class Builder {
 
         private String identifier;
-        private Type type = Type.NORMAL;
         private Material material;
         private Supplier<Item> drop;
         private ItemDropBehaviour itemDropBehaviour = ItemDropBehaviour.DEFAULT;
@@ -98,11 +97,6 @@ public class UnnamedBlock extends Block {
 
         public Builder identifier(String identifier) {
             this.identifier = identifier;
-            return this;
-        }
-
-        public Builder type(Type type) {
-            this.type = type;
             return this;
         }
 
@@ -142,49 +136,23 @@ public class UnnamedBlock extends Block {
             return this;
         }
 
-        public UnnamedBlock build() {
+        public UnnamedBlock build(ConstructionBehaviour constructionBehaviour) {
             checkNotNull(this.identifier, "An identifier is required to build a block!");
 
             if (this.material == null) {
-                this.material = this.type.getMaterial();
+                this.material = constructionBehaviour.getDefaultMaterial();
             }
 
-            final UnnamedBlock block;
-            switch (type) {
-                case ORE:
-                    block = new UnnamedBlockOre(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
-                    break;
-                case GLASS:
-                    block = new UnnamedBlockGlass(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
-                    break;
-                default:
-                    block = new UnnamedBlock(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
-                    break;
-            }
-
+            final UnnamedBlock block =
+                    constructionBehaviour.construct(this.identifier, this.material, this.drop, this.itemDropBehaviour, this.expDropBehaviour);
             this.hardness.ifPresent(block::setHardness);
             this.resistance.ifPresent(block::setResistance);
 
             return block;
         }
 
-    }
-
-    public enum Type {
-
-        NORMAL(Material.ROCK),
-        ORE(Material.ROCK),
-        GLASS(Material.GLASS),
-        ;
-
-        private final Material material;
-
-        Type(Material material) {
-            this.material = material;
-        }
-
-        public Material getMaterial() {
-            return this.material;
+        public UnnamedBlock build() {
+            return this.build(ConstructionBehaviour.DEFAULT);
         }
 
     }

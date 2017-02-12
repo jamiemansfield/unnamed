@@ -26,9 +26,7 @@
 package uk.jamierocks.mc.unnamed.init;
 
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import uk.jamierocks.mc.unnamed.block.UnnamedBlockGlass;
 import uk.jamierocks.mc.unnamed.block.UnnamedBlock;
-import uk.jamierocks.mc.unnamed.block.UnnamedBlockOre;
 import uk.jamierocks.mc.unnamed.util.Constants;
 
 /**
@@ -38,11 +36,11 @@ import uk.jamierocks.mc.unnamed.util.Constants;
 public final class UnnamedBlocks {
 
     // tungsten
-    public static final UnnamedBlockOre tungsten_ore = null;
+    public static final UnnamedBlock tungsten_ore = null;
     public static final UnnamedBlock tungsten_block = null;
 
     // hardened stuff
-    public static final UnnamedBlockGlass hardened_glass = null;
+    public static final UnnamedBlock hardened_glass = null;
 
     private UnnamedBlocks() {
     }
