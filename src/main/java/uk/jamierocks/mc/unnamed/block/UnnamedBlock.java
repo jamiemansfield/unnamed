@@ -84,19 +84,32 @@ public class UnnamedBlock extends Block {
         return this.expDropBehaviour.getQuantityDropped(state, world, pos, fortune);
     }
 
+    @Override // this is needed for its public access modifier
+    public Block setSoundType(SoundType sound) {
+        return super.setSoundType(sound);
+    }
+
     public static Builder builder() {
         return new Builder();
     }
 
-    public static Builder glassBuilder() {
+    public static Builder oreBuilder() {
         return new Builder()
+                .drop(ItemDropBehaviour.Ore.DEFAULT);
+    }
+
+    public static Builder glassBuilder() {
+        return new Builder(ConstructionBehaviour.GLASS)
                 .material(Material.GLASS)
                 .soundType(SoundType.GLASS)
-                .drop(ItemDropBehaviour.DROP_NONE);
+                .drop(ItemDropBehaviour.DROP_NONE)
+                .hardness(0.3f)
+                .resistance(1.0f);
     }
 
     public static class Builder {
 
+        private final ConstructionBehaviour defaultConstructionBehaviour;
         private String identifier;
         private Material material = Material.ROCK;
         private Optional<SoundType> soundType = Optional.empty();
@@ -107,6 +120,11 @@ public class UnnamedBlock extends Block {
         private Optional<Float> resistance = Optional.empty();
 
         private Builder() {
+            this(ConstructionBehaviour.DEFAULT);
+        }
+
+        private Builder(ConstructionBehaviour defaultConstructionBehaviour) {
+            this.defaultConstructionBehaviour = defaultConstructionBehaviour;
         }
 
         public Builder identifier(String identifier) {
@@ -129,8 +147,8 @@ public class UnnamedBlock extends Block {
             return this;
         }
 
-        public Builder drop(ItemDropBehaviour dropBehavior) {
-            this.itemDropBehaviour = dropBehavior;
+        public Builder drop(ItemDropBehaviour dropBehaviour) {
+            this.itemDropBehaviour = dropBehaviour;
             return this;
         }
 
@@ -139,9 +157,9 @@ public class UnnamedBlock extends Block {
             return this;
         }
 
-        public Builder drop(Supplier<Item> drop, ItemDropBehaviour dropBehavior) {
+        public Builder drop(Supplier<Item> drop, ItemDropBehaviour dropBehaviour) {
             this.drop = drop;
-            this.itemDropBehaviour = dropBehavior;
+            this.itemDropBehaviour = dropBehaviour;
             return this;
         }
 
@@ -168,7 +186,7 @@ public class UnnamedBlock extends Block {
         }
 
         public UnnamedBlock build() {
-            return this.build(ConstructionBehaviour.DEFAULT);
+            return this.build(this.defaultConstructionBehaviour);
         }
 
     }

@@ -35,6 +35,7 @@ import uk.jamierocks.mc.unnamed.util.Constants;
 @GameRegistry.ObjectHolder(Constants.MOD_ID)
 public final class UnnamedItems {
 
+    // tungsten
     public static final UnnamedItem tungsten = null;
     public static final UnnamedItem tungsten_carbide = null;
 
