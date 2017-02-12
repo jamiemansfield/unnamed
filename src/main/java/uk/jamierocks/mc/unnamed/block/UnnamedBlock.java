@@ -74,6 +74,11 @@ public class UnnamedBlock extends Block {
     }
 
     @Override
+    public int quantityDroppedWithBonus(int fortune, Random random) {
+        return this.itemDropBehaviour.getQuantityDroppedWithBonus(fortune, random);
+    }
+
+    @Override
     public int getExpDrop(IBlockState state, IBlockAccess world, BlockPos pos, int fortune) {
         return this.expDropBehaviour.getQuantityDropped(state, world, pos, fortune);
     }

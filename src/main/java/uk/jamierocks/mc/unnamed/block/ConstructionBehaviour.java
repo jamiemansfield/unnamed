@@ -36,7 +36,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Random;
 import java.util.function.Supplier;
 
 /**
@@ -57,38 +56,6 @@ public interface ConstructionBehaviour {
         public UnnamedBlock construct(String identifier, Material materialIn, Supplier<Item> dropped, ItemDropBehaviour itemDropBehaviour,
                 ExpDropBehaviour expDropBehaviour) {
             return new UnnamedBlock(identifier, materialIn, dropped, itemDropBehaviour, expDropBehaviour);
-        }
-    };
-
-    /**
-     * The construction behaviour for ores.
-     */
-    ConstructionBehaviour ORE = new ConstructionBehaviour() {
-        @Override
-        public Material getDefaultMaterial() {
-            return Material.ROCK;
-        }
-
-        @Override
-        public UnnamedBlock construct(String identifier, Material materialIn, Supplier<Item> dropped, ItemDropBehaviour itemDropBehaviour,
-                ExpDropBehaviour expDropBehaviour) {
-            return new UnnamedBlock(identifier, materialIn, dropped, itemDropBehaviour, expDropBehaviour) {
-                // based on code from BlockOre#quantityDroppedWithBonus(int, Random)
-                @Override
-                public int quantityDroppedWithBonus(int fortune, Random random) {
-                    if (fortune > 0 && this.dropped != null) {
-                        int i = random.nextInt(fortune + 2) - 1;
-
-                        if (i < 0) {
-                            i = 0;
-                        }
-
-                        return this.quantityDropped(random) * (i + 1);
-                    } else {
-                        return this.quantityDropped(random);
-                    }
-                }
-            };
         }
     };
 
