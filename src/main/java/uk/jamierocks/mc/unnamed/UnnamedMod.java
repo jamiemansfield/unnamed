@@ -48,6 +48,7 @@ import net.minecraftforge.fml.common.registry.IForgeRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import uk.jamierocks.mc.unnamed.block.ExpDropBehaviour;
 import uk.jamierocks.mc.unnamed.block.ItemDropBehaviour;
+import uk.jamierocks.mc.unnamed.block.Presets;
 import uk.jamierocks.mc.unnamed.block.UnnamedBlock;
 import uk.jamierocks.mc.unnamed.item.UnnamedItem;
 import uk.jamierocks.mc.unnamed.proxy.IProxy;
@@ -72,9 +73,10 @@ public final class UnnamedMod {
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {
         // tungsten
-        registerBlock(event.getRegistry(), UnnamedBlock.oreBuilder()
+        registerBlock(event.getRegistry(), UnnamedBlock.builder()
+                .preset(Presets.ORE)
                 .identifier("tungsten_ore")
-                .drop(() -> tungsten, ItemDropBehaviour.Ore.of(1, 3))
+                .drop(ItemDropBehaviour.Fortune.of(() -> tungsten, 1, 3))
                 .drop(ExpDropBehaviour.of(2, 5))
                 .build());
         registerBlock(event.getRegistry(), UnnamedBlock.builder()
@@ -82,7 +84,8 @@ public final class UnnamedMod {
                 .build());
 
         // hardened stuff
-        registerBlock(event.getRegistry(), UnnamedBlock.glassBuilder()
+        registerBlock(event.getRegistry(), UnnamedBlock.builder()
+                .preset(Presets.GLASS)
                 .identifier("hardened_glass")
                 .hardness(0.75f) // glass hardness is 0.3, this is 1.5x
                 .resistance(10f) // same as stone

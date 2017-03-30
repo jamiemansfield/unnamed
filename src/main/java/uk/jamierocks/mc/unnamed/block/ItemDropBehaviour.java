@@ -25,12 +25,16 @@
 
 package uk.jamierocks.mc.unnamed.block;
 
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.Optional;
 import java.util.Random;
+import java.util.function.Supplier;
 
 /**
- * An interface used to describe the behaviour for item drops for an {@link UnnamedBlock}.
+ * An interface used to describe the behaviour for item drops for a {@link UnnamedBlock}.
  */
 public interface ItemDropBehaviour {
 
@@ -55,6 +59,27 @@ public interface ItemDropBehaviour {
     }
 
     /**
+     * Creates a drop behaviour that drops the given item quantity.
+     *
+     * @param drop The item to be dropped
+     * @param quantity The quantity of items to drop
+     * @return The drop behaviour
+     */
+    static ItemDropBehaviour of(Supplier<Item> drop, int quantity) {
+        return new ItemDropBehaviour() {
+            @Override
+            public int getQuantityDropped(Random random) {
+                return quantity;
+            }
+
+            @Override
+            public Optional<Supplier<Item>> getDrop() {
+                return Optional.of(drop);
+            }
+        };
+    }
+
+    /**
      * Creates a drop behaviour that drops based on given item quantity range.
      *
      * @param minimum The minimum quantity of items to drop
@@ -63,6 +88,28 @@ public interface ItemDropBehaviour {
      */
     static ItemDropBehaviour of(int minimum, int maximum) {
         return (random) -> MathHelper.getInt(random, minimum, maximum);
+    }
+
+    /**
+     * Creates a drop behaviour that drops based on given item quantity range.
+     *
+     * @param drop The item to be dropped
+     * @param minimum The minimum quantity of items to drop
+     * @param maximum The maximum quantity of items to drop
+     * @return The drop behaviour
+     */
+    static ItemDropBehaviour of(Supplier<Item> drop, int minimum, int maximum) {
+        return new ItemDropBehaviour() {
+            @Override
+            public int getQuantityDropped(Random random) {
+                return MathHelper.getInt(random, minimum, maximum);
+            }
+
+            @Override
+            public Optional<Supplier<Item>> getDrop() {
+                return Optional.of(drop);
+            }
+        };
     }
 
     /**
@@ -84,37 +131,99 @@ public interface ItemDropBehaviour {
         return this.getQuantityDropped(random);
     }
 
-    interface Ore extends ItemDropBehaviour {
+    /**
+     * Gets the {@link Item} that will be dropped.
+     * If this is {@code Optional.empty()}, the block will be dropped.
+     *
+     * @return The item to be dropped
+     */
+    default Optional<Supplier<Item>> getDrop() {
+        return Optional.empty();
+    }
 
-        /**
-         * A drop behaviour for dropping no items.
-         */
-        Ore DROP_NONE = of(0);
+    /**
+     * Gets the metadata.
+     *
+     * @param block The unnamed block
+     * @param blockState The block state
+     * @return The meta
+     */
+    default int getMeta(UnnamedBlock block, IBlockState blockState) {
+        return 0;
+    }
+
+    /**
+     * A {@link ItemDropBehaviour} to be used to apply fortune. This allows for ore-like functionality.
+     */
+    interface Fortune extends ItemDropBehaviour {
 
         /**
          * The default drop behaviour.
          */
-        Ore DEFAULT = of(1);
+        Fortune DEFAULT = of(1);
 
         /**
-         * Creates a drop behaviour that drops the given item quantity for an ore.
+         * Creates a drop behaviour that drops the given item quantity
          *
          * @param quantity The quantity of items to drop
          * @return The drop behaviour
          */
-        static Ore of(int quantity) {
+        static Fortune of(int quantity) {
             return (random) -> quantity;
         }
 
         /**
-         * Creates a drop behaviour that drops based on given item quantity range for an ore.
+         * Creates a drop behaviour that drops the given item quantity.
+         *
+         * @param drop The item to be dropped
+         * @param quantity The quantity of items to drop
+         * @return The drop behaviour
+         */
+        static Fortune of(Supplier<Item> drop, int quantity) {
+            return new Fortune() {
+                @Override
+                public int getQuantityDropped(Random random) {
+                    return quantity;
+                }
+
+                @Override
+                public Optional<Supplier<Item>> getDrop() {
+                    return Optional.of(drop);
+                }
+            };
+        }
+
+        /**
+         * Creates a drop behaviour that drops based on given item quantity range.
          *
          * @param minimum The minimum quantity of items to drop
          * @param maximum The maximum quantity of items to drop
          * @return The drop behaviour
          */
-        static Ore of(int minimum, int maximum) {
+        static Fortune of(int minimum, int maximum) {
             return (random) -> MathHelper.getInt(random, minimum, maximum);
+        }
+
+        /**
+         * Creates a drop behaviour that drops based on given item quantity range.
+         *
+         * @param drop The item to be dropped
+         * @param minimum The minimum quantity of items to drop
+         * @param maximum The maximum quantity of items to drop
+         * @return The drop behaviour
+         */
+        static Fortune of(Supplier<Item> drop, int minimum, int maximum) {
+            return new Fortune() {
+                @Override
+                public int getQuantityDropped(Random random) {
+                    return MathHelper.getInt(random, minimum, maximum);
+                }
+
+                @Override
+                public Optional<Supplier<Item>> getDrop() {
+                    return Optional.of(drop);
+                }
+            };
         }
 
         // based on code from BlockOre#quantityDroppedWithBonus(int, Random)
