@@ -51,7 +51,7 @@ import java.util.function.Consumer;
  *
  * This is accomplished by overriding necessary methods from {@link Block}, and replacing
  * them with the various behaviours that are defined by the user or the ones provided by
- * Concrete.
+ * Unnamed.
  */
 public final class UnnamedBlock extends Block {
 
@@ -59,7 +59,7 @@ public final class UnnamedBlock extends Block {
         return new Builder();
     }
 
-    private final boolean concreteTranslucent; // Minecraft has its own translucent field
+    private final boolean unnamedTranslucent; // Minecraft has its own translucent field
     private final boolean silkHarvest;
     private final ItemDropBehaviour itemDropBehaviour;
     private final ExpDropBehaviour expDropBehaviour;
@@ -67,7 +67,7 @@ public final class UnnamedBlock extends Block {
     private UnnamedBlock(String identifier, Material materialIn, boolean translucent, boolean silkHarvest,
             ItemDropBehaviour itemDropBehaviour, ExpDropBehaviour expDropBehaviour) {
         super(materialIn);
-        this.concreteTranslucent = translucent;
+        this.unnamedTranslucent = translucent;
         this.silkHarvest = silkHarvest;
         this.itemDropBehaviour = itemDropBehaviour;
         this.expDropBehaviour = expDropBehaviour;
@@ -119,7 +119,7 @@ public final class UnnamedBlock extends Block {
 
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
-        if (this.concreteTranslucent) {
+        if (this.unnamedTranslucent) {
             return BlockRenderLayer.TRANSLUCENT;
         } else {
             return super.getBlockLayer();
@@ -128,7 +128,7 @@ public final class UnnamedBlock extends Block {
 
     @Override
     public boolean isFullCube(IBlockState state) {
-        if (this.concreteTranslucent) {
+        if (this.unnamedTranslucent) {
             return false;
         } else {
             return super.isFullCube(state);
@@ -137,7 +137,7 @@ public final class UnnamedBlock extends Block {
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
-        if (this.concreteTranslucent) {
+        if (this.unnamedTranslucent) {
             return false;
         } else {
             return super.isOpaqueCube(state);
@@ -146,7 +146,7 @@ public final class UnnamedBlock extends Block {
 
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        if (this.concreteTranslucent) {
+        if (this.unnamedTranslucent) {
             // adapted from BlockGlass#shouldSideBeRendered(IBlockState, IBlockAccess, BlockPos, EnumFacing)
             final IBlockState iblockstate = blockAccess.getBlockState(pos.offset(side));
             final Block block = iblockstate.getBlock();

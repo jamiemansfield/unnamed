@@ -59,6 +59,16 @@ public interface ItemDropBehaviour {
     }
 
     /**
+     * Creates a drop behaviour that drops the given item once.
+     *
+     * @param drop The item to drop
+     * @return The drop behaviour
+     */
+    static ItemDropBehaviour of(Supplier<Item> drop) {
+        return of(drop, 1);
+    }
+
+    /**
      * Creates a drop behaviour that drops the given item quantity.
      *
      * @param drop The item to be dropped

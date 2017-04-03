@@ -53,6 +53,7 @@ import uk.jamierocks.mc.unnamed.block.UnnamedBlock;
 import uk.jamierocks.mc.unnamed.item.UnnamedItem;
 import uk.jamierocks.mc.unnamed.proxy.IProxy;
 import uk.jamierocks.mc.unnamed.util.Constants;
+import uk.jamierocks.mc.unnamed.util.CreativeTabHelper;
 
 @Mod(modid = Constants.MOD_ID, name = "Unnamed")
 @Mod.EventBusSubscriber
@@ -63,12 +64,7 @@ public final class UnnamedMod {
             serverSide = "uk.jamierocks.md.unnamed.proxy.ServerProxy")
     public static IProxy proxy;
 
-    public static CreativeTabs creativeTab = new CreativeTabs(Constants.MOD_ID) {
-        @Override
-        public ItemStack getTabIconItem() {
-            return new ItemStack(tungsten);
-        }
-    };
+    public static CreativeTabs creativeTab = CreativeTabHelper.of(Constants.MOD_ID, () -> tungsten);
 
     @SubscribeEvent
     public static void registerBlocks(RegistryEvent.Register<Block> event) {

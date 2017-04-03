@@ -23,18 +23,36 @@
  *
  */
 
-package uk.jamierocks.mc.unnamed.proxy;
+package uk.jamierocks.mc.unnamed.util;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+import java.util.function.Supplier;
 
 /**
- * The implementation of {@link IProxy} for the Minecraft server.
+ * A helper class for creative tabs.
  */
-public final class ServerProxy implements IProxy {
+public final class CreativeTabHelper {
 
-    @Override
-    public void registerItemModel(Item item, int itemVariant) {
-        // this is only required in the client
+    /**
+     * Creates a {@link CreativeTabs} with the given label and item.
+     *
+     * @param label The label
+     * @param item The item to use to represent the tab
+     * @return The creative tab
+     */
+    public static CreativeTabs of(final String label, final Supplier<Item> item) {
+        return new CreativeTabs(label) {
+            @Override
+            public ItemStack getTabIconItem() {
+                return new ItemStack(item.get());
+            }
+        };
+    }
+
+    private CreativeTabHelper() {
     }
 
 }
